@@ -15,12 +15,12 @@ Global $HOUSE_ZU_HELTZER = 77
 Global $VQ = False
 
 While 1
-    If Not $boolrun Then 
+    If Not $BOT_RUNNING Then
         Sleep(50)
         ContinueLoop
     EndIf
 
-    If $NumberRun = 0 Then
+    If $BOT_RUNNING = 0 Then
         $TIMER = TimerInit()
         $STARTING_POINTS = GetKurzickFaction()
     EndIf
@@ -32,14 +32,14 @@ While 1
 
     SwitchMode(1)
     RndSleep(1000)
-    $NumberRun = $NumberRun +1
-    Out("Begin run number " & $NumberRun)
+    $BOT_RUNNING += 1
+    Out("Begin run number " & $BOT_RUNNING)
     GoOut()
     VQ()
     TravelTo($HOUSE_ZU_HELTZER)
     Inventory()
     TurnInFactionKurzick()
-    Kurzickpoint()
+    KurzickPoints()
 WEnd
 
 Func GoOut()
@@ -53,10 +53,8 @@ Func GoOut()
     MoveTo(7810,-726)
     Do
         MoveTo(10042,-1173)
-        RndSleep(500)
-        Move(10446, -1147, 5)
-        WaitForLoad()
-    Until GetMapID() = $FERNDALE
+        MoveTo(10446, -1147, 5)
+    Until GetMapID() == $FERNDALE
 EndFunc ;GoOut
 
 Func FactionCheck()
@@ -78,6 +76,7 @@ Func TurnInFactionKurzick()
         Until GetKurzickFaction() < 5000
     EndIf
     If GUICtrlRead($Amber) == $GUI_CHECKED Then
+        If InventoryIsFull() Then Return
         Do
             Out("Getting Amber")
             Dialog(0x84)
@@ -89,13 +88,7 @@ Func TurnInFactionKurzick()
     EndIf
 EndFunc ;TurnInFactionKurzick
 
-Func _status()
-    $time = TimerDiff($TIMER)
-    $string = StringFormat("min: %03u  sec: %02u ", $time/1000/60, Mod($time/1000,60))
-    GUICtrlSetData($label_stat, $string)
-EndFunc ;_status
-
-Func Kurzickpoint()
+Func KurzickPoints()
     $point_earn = GetKurzickFaction() - $STARTING_POINTS + $POINTS_DONATED
     GUICtrlSetData($gui_status_point, $point_earn)
 EndFunc ;Kurzickpoint
@@ -269,11 +262,20 @@ Func VQ()
     If $DeadOnTheRun = 0 Then RndSleep(6000)
     If $VQ = True Then $DeadOnTheRun = 0
     AdlibUnRegister("_status")
+    AdlibUnRegister("CheckVQ")
 EndFunc
 
+#Region Helpers
 Func CheckVQ()
     If GetAreaVanquished() Then
         $DeadOnTheRun = 1
         $VQ = True
     EndIf
-EndFunc
+EndFunc ;CheckVQ
+
+Func _status()
+    $time = TimerDiff($TIMER)
+    $string = StringFormat("min: %03u  sec: %02u ", $time/1000/60, Mod($time/1000,60))
+    GUICtrlSetData($label_stat, $string)
+EndFunc ;_status
+#EndRegion Helpers

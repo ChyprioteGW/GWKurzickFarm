@@ -2,8 +2,8 @@
 
 Global $strName = ""
 Global $iItems_Picked = 0
-Global $NumberRun = 0, $DeldrimorMade = 0, $IDKitBought = 0, $RunSuccess = 0
-Global $boolrun = False
+Global $BOT_RUNNING = 0, $DeldrimorMade = 0, $IDKitBought = 0, $RunSuccess = 0
+Global $BOT_RUNNING = False
 Global $strName = ""
 Global $coords[2]
 
@@ -60,11 +60,11 @@ func GUI_EventHandler()
         case $GUI_EVENT_CLOSE
             exit
         case $Start
-            $NumberRun = 0
+            $BOT_RUNNING = 0
             $DeldrimorMade = 0
             $IDKitBought = 0
             $RunSuccess = 0
-            $boolrun = True
+            $BOT_RUNNING = True
 
             GUICtrlSetState($Start, $GUI_DISABLE)
             GUICtrlSetState($txtName, $GUI_DISABLE)
@@ -85,10 +85,10 @@ endfunc
 
 Func Out($MSG)
     GUICtrlSetData($STATUS, $MSG)
-    GUICtrlSetData($gui_status_runs, $NumberRun)
+    GUICtrlSetData($gui_status_runs, $BOT_RUNNING)
     GUICtrlSetData($gui_status_kit, $IDKitBought)
     GUICtrlSetData($gui_status_successful, $RunSuccess)
-    FileWriteLine($File, "Run : " & $NumberRun & " à : " & @Hour & ":" & @MIN & "." & @Sec & "   " & $MSG & @CRLF)
+    FileWriteLine($File, "Run : " & $BOT_RUNNING & " à : " & @Hour & ":" & @MIN & "." & @Sec & "   " & $MSG & @CRLF)
 EndFunc ;Out
 
 Func WaitForLoad()
