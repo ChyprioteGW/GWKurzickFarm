@@ -12,16 +12,18 @@ Global $DeadOnTheRun = 0
 Global $POINTS_DONATED = 0
 Global $FERNDALE = 210
 Global $HOUSE_ZU_HELTZER = 77
+Global $TOTAL_RUNS = 0
 Global $VQ = False
+Global $START_TIME
 
 While 1
-    If Not $BOT_RUNNING Then
+    If Not $TOTAL_RUNS Then
         Sleep(50)
         ContinueLoop
     EndIf
 
-    If $BOT_RUNNING = 0 Then
-        $TIMER = TimerInit()
+    If $TOTAL_RUNS == 0 Then
+        $START_TIME = TimerInit()
         $STARTING_POINTS = GetKurzickFaction()
     EndIf
 
@@ -32,8 +34,8 @@ While 1
 
     SwitchMode(1)
     RndSleep(1000)
-    $BOT_RUNNING += 1
-    Out("Begin run number " & $BOT_RUNNING)
+    $TOTAL_RUNS += 1
+    Out("Begin run number " & $TOTAL_RUNS)
     GoOut()
     VQ()
     TravelTo($HOUSE_ZU_HELTZER)
@@ -41,6 +43,10 @@ While 1
     TurnInFactionKurzick()
     KurzickPoints()
 WEnd
+
+Func GoMerchant()
+    GoToNPC(GetNearestNPCToCoords(8481, 2005))
+EndFunc ;GoMerchant
 
 Func GoOut()
     If GetGoldCharacter() < 100 AND GetGoldStorage() > 2000 Then
@@ -274,7 +280,7 @@ Func CheckVQ()
 EndFunc ;CheckVQ
 
 Func _status()
-    $time = TimerDiff($TIMER)
+    $time = TimerDiff($START_TIME)
     $string = StringFormat("min: %03u  sec: %02u ", $time/1000/60, Mod($time/1000,60))
     GUICtrlSetData($label_stat, $string)
 EndFunc ;_status

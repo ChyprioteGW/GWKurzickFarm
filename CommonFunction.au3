@@ -2,8 +2,7 @@
 
 Global $strName = ""
 Global $iItems_Picked = 0
-Global $BOT_RUNNING = 0, $DeldrimorMade = 0, $IDKitBought = 0, $RunSuccess = 0
-Global $BOT_RUNNING = False
+Global $IDKitBought = 0, $RunSuccess = 0
 Global $strName = ""
 Global $coords[2]
 
@@ -19,23 +18,22 @@ GUICtrlCreateLabel("Globeul", 180, 180-70-30,80)
     GUICtrlSetFont(-1, 15)
 $Start = GUICtrlCreateButton("Start", 178, 250-90-50, 75, 25, $WS_GROUP)
     GUICtrlSetOnEvent(-1, "GUI_EventHandler")
-GUICtrlCreateGroup("Status: Runs", 275-265, 8, 255, 90-35)
-GUICtrlCreateLabel("Total Runs:", 285-265, 28, 70, 17)
-Global $gui_status_runs = GUICtrlCreateLabel("0", 355-265, 28, 40, 17, $SS_RIGHT)
-GUICtrlCreateLabel("Kits Bought:", 410-265, 28, 70, 17)
-Global $gui_status_kit = GUICtrlCreateLabel("0", 480-265, 28, 40, 17, $SS_RIGHT)
-GUICtrlCreateLabel("Successful:", 285-265, 43, 70, 17)
+
+GUICtrlCreateGroup("Status", 10, 8, 150, 55)
+GUICtrlCreateLabel("Total Runs:", 20, 28, 70, 17)
+Global $gui_status_runs = GUICtrlCreateLabel("0", 90, 28, 40, 17, $SS_RIGHT)
+GUICtrlCreateLabel("Successful:", 20, 43, 70, 17)
     GUICtrlSetColor(-1, 0x008000)
-Global $gui_status_successful = GUICtrlCreateLabel("0", 355-265, 43, 40, 17, $SS_RIGHT)
+Global $gui_status_successful = GUICtrlCreateLabel("0", 90, 43, 40, 17, $SS_RIGHT)
     GUICtrlSetColor(-1, 0x008000)
+
 GUICtrlCreateGroup("", -99, -99, 1, 1)
-GUICtrlCreateGroup("Status: Items", 275-265, 235-132-35, 150, 195-80-40-15)
-GUICtrlCreateLabel("Titre:", 285-265, 255-132-35, 27, 17)
-GUICtrlCreateLabel("Made:", 380-265, 255-132-35, 40, 17)
-GUICtrlCreateLabel("Kurzick", 285-265, 285-132-35-15, 70, 17)
+GUICtrlCreateGroup("Title", 10, 70, 150, 60)
+GUICtrlCreateLabel("Kurzick", 20, 90, 70, 20)
     GUICtrlSetColor(-1, 0x808000)
-Global $gui_status_point = GUICtrlCreateLabel("0", 370-265, 285-132-35-15, 40, 17, $SS_RIGHT)
+Global $gui_status_point = GUICtrlCreateLabel("0", 105, 90, 40, 20, $SS_RIGHT)
     GUICtrlSetColor(-1, 0x808000)
+
 Global $Donate = GUICtrlCreateRadio("Donate", 370-265, 285-132-35-15+35, 55, 17)
 Global $Amber = GUICtrlCreateRadio("Amber", 370-265-60, 285-132-35-15+35, 45, 17)
 GUICtrlCreateGroup("", -99, -99, 1, 1)
@@ -60,9 +58,7 @@ func GUI_EventHandler()
         case $GUI_EVENT_CLOSE
             exit
         case $Start
-            $BOT_RUNNING = 0
-            $DeldrimorMade = 0
-            $IDKitBought = 0
+            $TOTAL_RUNS = 0
             $RunSuccess = 0
             $BOT_RUNNING = True
 
@@ -85,10 +81,9 @@ endfunc
 
 Func Out($MSG)
     GUICtrlSetData($STATUS, $MSG)
-    GUICtrlSetData($gui_status_runs, $BOT_RUNNING)
-    GUICtrlSetData($gui_status_kit, $IDKitBought)
+    GUICtrlSetData($gui_status_runs, $TOTAL_RUNS)
     GUICtrlSetData($gui_status_successful, $RunSuccess)
-    FileWriteLine($File, "Run : " & $BOT_RUNNING & " à : " & @Hour & ":" & @MIN & "." & @Sec & "   " & $MSG & @CRLF)
+    FileWriteLine($File, "Run : " & $TOTAL_RUNS & " à : " & @Hour & ":" & @MIN & "." & @Sec & "   " & $MSG & @CRLF)
 EndFunc ;Out
 
 Func WaitForLoad()
