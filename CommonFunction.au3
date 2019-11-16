@@ -8,7 +8,7 @@ Global $coords[2]
 
 Global $File = @ScriptDir & "\Trace\Traça du " & @MDAY & "-" & @MON & " a " & @HOUR & "h et " & @MIN & "minutes.txt"
 
-Global $intSkillEnergy[8] = [1, 15, 5, 5, 10, 15, 5, 5]
+Global $intSkillEnergy[8] = [0, 15, 25, 5, 10, 15, 5, 5]
 
 Opt("GUIOnEventMode", 1)
 
