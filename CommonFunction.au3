@@ -86,35 +86,7 @@ Func Out($MSG)
     FileWriteLine($File, "Run : " & $TOTAL_RUNS & " à : " & @Hour & ":" & @MIN & "." & @Sec & "   " & $MSG & @CRLF)
 EndFunc ;Out
 
-Func WaitForLoad()
-    Out("Loading zone")
-    InitMapLoad()
-    $deadlock = 0
-    Do
-        Sleep(100)
-        $deadlock += 100
-        $load = GetMapLoading()
-        $lMe = GetAgentByID(-2)
-
-    Until $load = 2 And DllStructGetData($lMe, 'X') = 0 And DllStructGetData($lMe, 'Y') = 0 Or $deadlock > 10000
-
-    $deadlock = 0
-    Do
-        Sleep(100)
-        $deadlock += 100
-
-        $deadlock += 100
-        $load = GetMapLoading()
-        $lMe = GetAgentByID(-2)
-
-    Until $load <> 2 And DllStructGetData($lMe, 'X') <> 0 And DllStructGetData($lMe, 'Y') <> 0 Or $deadlock > 30000
-    Out("Load complete")
-    RndSleep(3000)
-EndFunc ;WaitForLoad
-
 Func AggroMoveToEx($x, $y, $s = "", $z = 2000)
-
-
     Out("Hunting " & $s)
     $random = 50
     $iBlocked = 0
