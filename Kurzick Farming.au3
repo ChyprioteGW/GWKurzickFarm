@@ -6,6 +6,7 @@
 #include "../GWA2.au3"
 #include "CommonFunction.au3"
 #include "../SimpleInventory.au3"
+AUTOITSETOPTION("TrayIconDebug", 1)
 
 Global $START_TIME
 Global $BOT_RUNNING = False
