@@ -18,7 +18,7 @@ Global $TOTAL_RUNS = 0
 
 Global $FERNDALE = 210
 Global $HOUSE_ZU_HELTZER = 77
-Global $TOTAL_RUNS = 0	
+Global $TOTAL_RUNS = 0
 Global $VQ = False
 Global $DeadOnTheRun = False
 
@@ -65,6 +65,7 @@ Func GoOut()
     Do
         MoveTo(10042,-1173)
         MoveTo(10446, -1147, 5)
+	WaitMapLoading()
     Until GetMapID() == $FERNDALE
 EndFunc ;GoOut
 
