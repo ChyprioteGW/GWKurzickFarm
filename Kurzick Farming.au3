@@ -64,9 +64,8 @@ Func GoOut()
     MoveTo(7810,-726)
     Do
         MoveTo(10042,-1173)
-        MoveTo(10446, -1147, 5)
-	WaitMapLoading()
-    Until GetMapID() == $FERNDALE
+        Move(10446, -1147, 5)
+    Until WaitMapLoading($FERNDALE)
 EndFunc ;GoOut
 
 Func TurnInFactionKurzick()
