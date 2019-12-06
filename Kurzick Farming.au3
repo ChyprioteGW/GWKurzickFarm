@@ -4,9 +4,9 @@
 #include <WindowsConstants.au3>
 #include <GuiComboBox.au3>
 #include "../GWA2.au3"
-#include "CommonFunction.au3"
 #include "../SimpleInventory.au3"
-AUTOITSETOPTION("TrayIconDebug", 1)
+#include "CommonFunction.au3"
+#NoTrayIcon
 
 Global $START_TIME
 Global $BOT_RUNNING = False
