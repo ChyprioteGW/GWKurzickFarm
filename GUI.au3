@@ -47,7 +47,7 @@ Global $edtLog = _GUICtrlRichEdit_Create($win, "", 10, 90, 250, 100, BitOR($ES_M
 	_GUICtrlRichEdit_SetFont($edtLog, 9, "Arial")
 	_GUICtrlRichEdit_SetCharColor($edtLog, "65280")
 	_GUICtrlEdit_Scroll($edtLog, $SB_SCROLLCARET)
-	_GUICtrlRichEdit_SetText($edtLog, StringFormat("Froggy Bot\n"))
+	_GUICtrlRichEdit_SetText($edtLog, StringFormat("Ferndale Bot\n"))
 
 ;GUICtrlCreateGroup("Status: Current Action", 10, 375 - 90 - 65 + 20, 255, 45)
 ;Global $STATUS = GUICtrlCreateLabel("Script not started yet", 20, 390 - 90 - 65 + 20, 235, 25)

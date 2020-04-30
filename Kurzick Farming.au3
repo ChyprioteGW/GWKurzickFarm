@@ -34,7 +34,7 @@ While 1
 	Out("Begin run number " & $TOTAL_RUNS)
 
 	GoOut()
-	VQ()
+	Vanquish()
 WEnd
 
 Func Setup()
@@ -119,7 +119,7 @@ Func TakeBlessing()
 	Until HasBlessing() or $deadlock = 10 ; luxon = 1947
 EndFunc
 
-Func VQ()
+Func Vanquish()
 	AdlibRegister("_status", 1000)
 	$VQ = False
 	$DeadOnTheRun = False
@@ -249,26 +249,28 @@ Func VQ()
 		[-910, 8685], _
 		[-4128, 6194], _
 		[-6594, 8377], _
-		[-9990, 9089], _
-		[-12213, 15125]]
+		[-9990, 9089]]
 
-	FollowPath($Waypoints)
-
-	If $DeadOnTheRun Then
-		$nearest = GetNearestWaypointIndex($Waypoints)
-		Out("Party wipe, restarting at " & $Waypoints[$nearest][0] & ", " & $Waypoints[$nearest][1])
-		$DeadOnTheRun = False
+	Do
 		FollowPath($Waypoints)
-	Endif
+	Until $VQ Or $DeadOnTheRun
 
 	If $VQ Then
 		Out("Waiting to get reward")
 		RndSleep(6000)
 		$DeadOnTheRun = False
 		EndRun()
-	Else
-		MoveTo($Waypoints[0][0], $Waypoints[0][1])
+		Return
 	EndIf
+
+	If $DeadOnTheRun Then
+		Out("Party wipe, restarting")
+		$DeadOnTheRun = False
+		Return Vanquish()
+	Endif
+
+	MoveTo($Waypoints[0][0], $Waypoints[0][1])
+	Vanquish()
 EndFunc
 
 Func EndRun()
