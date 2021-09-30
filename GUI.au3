@@ -74,7 +74,7 @@ Func GUI_EventHandler()
 					Exit
 				EndIf
 			Else
-				If Initialize(GUICtrlRead($txtName), "Guild Wars - " & GUICtrlRead($txtName)) = False Then
+				If Initialize(GUICtrlRead($txtName), GUICtrlRead($txtName) & " - Guild Wars") = False Then
 					MsgBox(0, "Error", "Can't find a Guild Wars client with that character name.")
 					Exit
 				EndIf

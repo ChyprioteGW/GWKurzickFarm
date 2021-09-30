@@ -4,7 +4,7 @@
 #include <WindowsConstants.au3>
 #include <GuiComboBox.au3>
 #include <Date.au3>
-#include "../GWA2.au3"
+#include "../GWA2/GWA2.au3"
 #include "GUI.au3"
 #include "../_SimpleInventory.au3"
 #include "../_AttackMove.au3"
